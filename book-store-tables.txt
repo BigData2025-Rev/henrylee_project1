@@ -1,0 +1,57 @@
+------ create database -------------
+CREATE DATABASE bookstore;
+
+
+------- create Person table ----------
+DROP TABLE IF EXISTS Person;
+CREATE TABLE Person (
+    UserID int NOT NULL AUTO_INCREMENT,
+    UserName varchar(255) NOT NULL,
+    Password varchar(255) NOT NULL,
+    FirstName varchar(255) NOT NULL,
+    LastName varchar(255) NOT NULL,
+    Role varchar(255) NOT NULL,
+    PRIMARY KEY (UserID)
+);
+
+
+------- create Book table ---------------
+DROP TABLE IF EXISTS Book;
+CREATE TABLE Book (
+    BookID int NOT NULL AUTO_INCREMENT,
+    BookNum varchar(255) NOT NULL,
+    Title varchar(255) NOT NULL,
+    Author varchar(255) NOT NULL,
+    Price float NOT NULL,
+    Quantity int,
+    PRIMARY KEY (BookID),
+    INDEX (BookNum)
+);
+
+
+------- create Order table ---------------
+DROP TABLE IF EXISTS UserOrder;
+CREATE TABLE UserOrder (
+    OrderID int NOT NULL AUTO_INCREMENT,
+    OrderValue float NOT NULL,
+    OrderDate DATE NOT NULL,
+    UserID int,
+    PRIMARY KEY (OrderID),
+    FOREIGN KEY (UserID) REFERENCES Person(UserID)
+);
+
+
+------- create OrderItem table ---------------
+DROP TABLE IF EXISTS OrderItem;
+CREATE TABLE OrderItem (
+    ItemID int NOT NULL AUTO_INCREMENT,
+    OrderID int NOT NULL,
+    BookNum varchar(255) NOT NULL,
+    Quantity int,
+    PRIMARY KEY (ItemID),
+    FOREIGN KEY (OrderID) REFERENCES UserOrder(OrderID),
+    FOREIGN KEY (BookNum) REFERENCES Book(BookNum)
+);
+
+
+

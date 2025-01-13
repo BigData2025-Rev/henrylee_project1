@@ -1,0 +1,3 @@
+test user: "Adam", "Johnson", "adam", "test123", "user"
+
+test book: "B2002", "Python in Action", "ABC Author"
