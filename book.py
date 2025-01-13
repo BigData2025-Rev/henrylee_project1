@@ -84,18 +84,27 @@ class Book():
         database_cnx = db_util.get_database_connection()
         db_cursor = database_cnx.cursor()
 
-        #check if user exists
-        delete_book = "DELETE FROM Book WHERE  BookNum = '" + book_number + "'"
-        #print(query)
-        Book.logger.info(delete_book)
-        db_cursor.execute(delete_book)
-        database_cnx.commit()
+        book_item = "SELECT * FROM OrderItem WHERE BookNum = '" + book_number + "';"
+        Book.logger.info(book_item)
+        db_cursor.execute(book_item)
         
-        #close db connection
-        db_cursor.close()
-        database_cnx.close()
+        my_result = db_cursor.fetchall()
 
-        print( book_number + " has been deleted")
+        if len(my_result) == 0:
+            #check if book exists
+            delete_book = "DELETE FROM Book WHERE BookNum = '" + book_number + "';"
+            #print(query)
+            Book.logger.info(delete_book)
+            db_cursor.execute(delete_book)
+            database_cnx.commit()
+            
+            #close db connection
+            db_cursor.close()
+            database_cnx.close()
+
+            print( book_number + " has been deleted")
+        else:
+            print( book_number + " can not be deleted")
 
 
     @classmethod

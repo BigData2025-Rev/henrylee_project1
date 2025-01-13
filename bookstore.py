@@ -119,8 +119,8 @@ def bookstore_menu_admin(user):
                 elif sub_menu_selection == "2":
                     #remove a book
                     logger.info("remove a book")
-                    print("Enter a book's ID to delete")
-                    book_id = input("Book ID: ")
+                    print("Enter a book's number to delete")
+                    book_id = input("Book Number: ")
                     Book.remove_book(book_id)
 
                     #list all books
